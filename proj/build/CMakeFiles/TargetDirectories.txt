@@ -1,6 +1,0 @@
-/home/ahmad/Documents/C++/multiclient-chatserver/proj/build/CMakeFiles/server.dir
-/home/ahmad/Documents/C++/multiclient-chatserver/proj/build/CMakeFiles/client.dir
-/home/ahmad/Documents/C++/multiclient-chatserver/proj/build/CMakeFiles/test_crypto.dir
-/home/ahmad/Documents/C++/multiclient-chatserver/proj/build/CMakeFiles/test.dir
-/home/ahmad/Documents/C++/multiclient-chatserver/proj/build/CMakeFiles/edit_cache.dir
-/home/ahmad/Documents/C++/multiclient-chatserver/proj/build/CMakeFiles/rebuild_cache.dir

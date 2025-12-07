@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/client.dir/link.d CMakeFiles/client.dir/client/src/main.cpp.o CMakeFiles/client.dir/client/src/client.cpp.o CMakeFiles/client.dir/include/ets/crypto_context.cpp.o -o client  /usr/lib/libssl.so /usr/lib/libcrypto.so
