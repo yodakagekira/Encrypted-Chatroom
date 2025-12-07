@@ -1,0 +1,74 @@
+[
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/server.dir/server/src/main.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/main.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/main.cpp",
+  "output": "CMakeFiles/server.dir/server/src/main.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/server.dir/server/src/server.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/server.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/server.cpp",
+  "output": "CMakeFiles/server.dir/server/src/server.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/server.dir/server/src/connection.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/connection.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/connection.cpp",
+  "output": "CMakeFiles/server.dir/server/src/connection.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/server.dir/server/src/chat_hub.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/chat_hub.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/chat_hub.cpp",
+  "output": "CMakeFiles/server.dir/server/src/chat_hub.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/server.dir/server/src/room_manager.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/room_manager.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/room_manager.cpp",
+  "output": "CMakeFiles/server.dir/server/src/room_manager.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/server.dir/server/src/server_config.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/server_config.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/src/server_config.cpp",
+  "output": "CMakeFiles/server.dir/server/src/server_config.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/server.dir/include/ets/crypto_context.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/include/ets/crypto_context.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/include/ets/crypto_context.cpp",
+  "output": "CMakeFiles/server.dir/include/ets/crypto_context.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/client.dir/client/src/main.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src/main.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src/main.cpp",
+  "output": "CMakeFiles/client.dir/client/src/main.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/client.dir/client/src/client.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src/client.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src/client.cpp",
+  "output": "CMakeFiles/client.dir/client/src/client.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/client.dir/include/ets/crypto_context.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/include/ets/crypto_context.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/include/ets/crypto_context.cpp",
+  "output": "CMakeFiles/client.dir/include/ets/crypto_context.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/test_crypto.dir/tests/test_crypto.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/tests/test_crypto.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/tests/test_crypto.cpp",
+  "output": "CMakeFiles/test_crypto.dir/tests/test_crypto.cpp.o"
+},
+{
+  "directory": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/build",
+  "command": "/usr/bin/c++  -I/home/ahmad/Documents/C++/multiclient-chatserver/proj -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/server/include -I/home/ahmad/Documents/C++/multiclient-chatserver/proj/client/src -O3 -DNDEBUG -std=c++17 -o CMakeFiles/test_crypto.dir/include/ets/crypto_context.cpp.o -c /home/ahmad/Documents/C++/multiclient-chatserver/proj/include/ets/crypto_context.cpp",
+  "file": "/home/ahmad/Documents/C++/multiclient-chatserver/proj/include/ets/crypto_context.cpp",
+  "output": "CMakeFiles/test_crypto.dir/include/ets/crypto_context.cpp.o"
+}
+]

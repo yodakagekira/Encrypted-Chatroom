@@ -1,0 +1,1 @@
+g++ -std=gnu++17 tests/test_crypto.cpp include/ets/crypto_context.cpp -I. -lssl -lcrypto -o test
