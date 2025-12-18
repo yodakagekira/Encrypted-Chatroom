@@ -33,6 +33,5 @@ The server’s job is “policy + routing”; Connection’s job is “I/O + fra
 
 Integration Boundaries
 ----------------------
-- EpollServer does not implement crypto details; CryptoContext does.
 - EpollServer does not parse frames manually; Connection + Protocol do.
 - ChatHub/RoomManager do not touch sockets; they operate on fds and strings.
