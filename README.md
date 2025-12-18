@@ -17,7 +17,6 @@ This project focuses on **systems programming**, **networking**, and **secure pr
 - [Build and Run](#build-and-run)
 - [Testing & Performance](#testing--performance)
 - [Documentation](#documentation)
-- [Intended Audience](#intended-audience)
 - [Future Work](#future-work)
 - [License](#license)
 
@@ -32,7 +31,7 @@ Modern messaging platforms often hide low-level mechanics behind large abstracti
 - Secure encrypted messaging
 - Scalable, multi-client architectures
 
-> The goal is to balance **educational clarity** with **practical performance**.
+> The mission: conquer low-level communication without sacrificing raw performance.
 
 ---
 
