@@ -3,61 +3,41 @@ Connection (per client socket)
 
 Role
 ----
-Connection represents a single connected client and is the bridge between:
-- raw socket I/O (bytes)
-- protocol framing (Protocol)
-- security (CryptoContext)
-- application-level handling (server callbacks)
+Connection represents one client session and bridges:
+- raw socket I/O
+- protocol framing
+- cryptography
+- application-level handling
 
-Rather than repeating every method in the header, this document focuses on:
-- what state a Connection owns,
-- how data flows through it,
-- what invariants the server relies on.
-
-State Owned (typical)
----------------------
-- fd: the client socket file descriptor
-- peer: printable peer identifier (ip:port or similar)
+State Owned
+-----------
+- fd: client socket descriptor
+- peer: printable peer identity
 - crypto: per-connection CryptoContext (keys + replay state)
-- inbuf: input byte buffer (accumulates TCP stream)
-- outbuf/out_off: output byte buffer + write offset
-- username + room: client identity/routing state (may be managed with ChatHub)
+- inbuf: input buffer for TCP stream reassembly
+- outbuf / out_off: output buffer and send offset
+- username, room: client identity and routing state
 
-Primary Call Paths
-------------------
-1) Read path (EPOLLIN):
-   EpollServer -> Connection::on_readable()
-     - recv() into inbuf
-     - while inbuf contains a full frame:
-         - parse header
-         - decode_message() -> (type, plaintext)
-         - invoke server-level handler callback(type, plaintext, fd)
+Core Data Paths
+---------------
+Read path (EPOLLIN):
+- recv() appends into inbuf
+- complete frames are parsed incrementally
+- decode_message() produces (type, plaintext)
+- message forwarded to server handler
 
-2) Write path (EPOLLOUT):
-   EpollServer -> Connection::on_writable()
-     - send() remaining bytes from outbuf starting at out_off
-     - when fully flushed: clear buffer and stop requesting EPOLLOUT
+Write path (EPOLLOUT):
+- send() flushes outbuf starting at out_off
+- EPOLLOUT disabled once buffer is drained
 
-3) Outgoing messages:
-   Server code calls Connection::queue_message(type, plaintext)
-     - encode_message() -> bytes
-     - append to outbuf and mark wants_write
+Outgoing messages:
+- server calls queue_message(type, text)
+- encode_message() appends encrypted frame to outbuf
 
 Key Invariants
 --------------
-- Connection never assumes recv() returns a whole frame; it buffers and parses incrementally.
-- Output writes are partial; out_off tracks progress.
-- CryptoContext must be per connection (do not share across clients).
+- TCP reads are incremental; no assumption of full frames per recv().
+- Writes may be partial; out_off tracks progress.
+- CryptoContext is strictly per-connection.
 - Frame size limits are enforced before allocation.
 
-Failure Modes
--------------
-- recv() returns 0: peer closed (server must remove fd).
-- decode_message fails: authentication failure or malformed frame; policy may be disconnect.
-- send() errors: close connection.
-
-References
-----------
-For method-level signatures and exact member names, see:
-- server/include/.../connection.hpp
-- server/src/connection.cpp
