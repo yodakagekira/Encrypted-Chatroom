@@ -24,8 +24,3 @@ Integration Points
 Used by:
 - EpollServer message handler (HELLO/JOIN/CHAT)
 - RoomManager for membership tracking
-
-References
-----------
-- server/include/.../chat_hub.hpp
-- server/src/chat_hub.cpp
