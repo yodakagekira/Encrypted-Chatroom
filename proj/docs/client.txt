@@ -1,0 +1,41 @@
+Client
+======
+
+Role
+----
+The Client provides an interactive terminal chat experience:
+- connects to the server over TCP
+- encodes commands/messages into framed encrypted protocol messages
+- receives frames, verifies + decrypts them, and prints plaintext output
+
+Behavior 
+---------------------
+1) connect_to(host, port)
+2) initialize CryptoContext (shared secret for stage-1)
+3) start a receiver loop (often in a thread) that:
+   - reads frames (header + payload)
+   - decode_message() -> plaintext
+   - prints plaintext safely (with minimal I/O races)
+4) main input loop:
+   - read line from stdin
+   - parse command (HELLO/JOIN/DISC or default CHAT)
+   - encode_message() and send the frame
+
+Command Parsing 
+-------------------------
+- HELLO <name>  -> MessageType::Hello
+- JOIN <room>   -> MessageType::Join
+- DISC or /quit -> MessageType::Disc
+- otherwise     -> MessageType::Chat (message text)
+
+Concurrency Notes
+-----------------
+If the client uses a receiver thread:
+- guard stdout writes to avoid interleaving with the prompt.
+- a clean shutdown should stop the receiver thread and close the socket to unblock recv().
+
+References
+----------
+- client/include/.../client.hpp
+- client/src/client.cpp
+- client/src/main.cpp

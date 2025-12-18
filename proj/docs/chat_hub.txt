@@ -1,0 +1,31 @@
+ChatHub
+=======
+
+Role
+----
+ChatHub holds the application-level chat state that is shared across connections:
+- usernames
+- room membership (via RoomManager)
+- broadcast helpers
+- system message formatting (timestamps, tags)
+
+ChatHub does NOT do socket I/O directly. Instead it uses a SendFn callback:
+the server decides how to deliver a plaintext string to a destination fd (e.g., queue_message).
+
+Routing
+-------
+- broadcast_room(room, from_fd, text):
+  - get members from RoomManager
+  - format message
+  - call send_fn(dst_fd, formatted_line) for each member
+
+Integration Points
+------------------
+Used by:
+- EpollServer message handler (HELLO/JOIN/CHAT)
+- RoomManager for membership tracking
+
+References
+----------
+- server/include/.../chat_hub.hpp
+- server/src/chat_hub.cpp

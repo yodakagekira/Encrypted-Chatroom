@@ -1,0 +1,61 @@
+CryptoContext
+=============
+
+Role
+----
+CryptoContext is the per-connection cryptography module. It is responsible for turning plaintext
+messages into authenticated encrypted blobs (and reversing that operation on receive).
+
+It hides the details of:
+- Key derivation from a shared secret,
+- Symmetric encryption (AES-256-CBC),
+- Message authentication (HMAC-SHA256),
+- Replay protection using monotonically increasing sequence numbers.
+
+Important: This project intentionally does not implement TLS; CryptoContext exists to keep crypto concerns
+isolated and explicit for learning and systems-level control.
+
+Public surface 
+---------------------------
+- from_shared_secret(secret) -> CryptoContext
+- encrypt_and_mac(plaintext) -> bytes   (nonce/seq + iv + ciphertext + tag)
+- decrypt_and_verify(bytes) -> plaintext (verify tag + replay checks + decrypt)
+
+Key Derivation (KDF)
+--------------------
+A simple HMAC-based KDF derives two independent 256-bit keys from the shared secret:
+- enc_key (for AES-256-CBC)
+- mac_key (for HMAC-SHA256)
+
+This keeps encryption and authentication keys separate.
+
+Encryption Path: encrypt_and_mac
+--------------------------------
+1) Generate a fresh random IV for AES-CBC.
+2) Encrypt plaintext using AES-256-CBC (OpenSSL EVP interface).
+3) Construct the encrypted “blob” layout:
+   - seqno / nonce (8 bytes)
+   - iv (16 bytes)
+   - ciphertext (variable)
+   - tag (32 bytes, HMAC-SHA256)
+4) Compute HMAC over:
+   [seqno || iv || ciphertext]
+5) Append tag and increment send sequence number.
+
+Decryption Path: decrypt_and_verify
+-----------------------------------
+1) Parse seqno, iv, ciphertext, tag from the encrypted blob.
+2) Recompute HMAC over:
+   [seqno || iv || ciphertext]
+   and compare tag in constant-time.
+3) Replay protection:
+   - Reject frames that are older than the expected receive sequence (replay/duplicate).
+   - Accept frames that are >= expected receive sequence and advance the receive counter.
+     (This allows skipping ahead if desired, depending on policy.)
+4) Decrypt ciphertext using AES-256-CBC with the provided IV.
+5) Output plaintext.
+
+
+This avoids a common bug where a single seq counter is used for both sending and receiving.
+
+

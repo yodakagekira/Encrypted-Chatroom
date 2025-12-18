@@ -1,0 +1,76 @@
+Protocol (Framing + Message Types)
+=================================
+
+Role
+----
+The protocol module defines how application messages are represented “on the wire”.
+It provides:
+- Message type definitions (HELLO / JOIN / CHAT / DISC, etc.)
+- A fixed-size frame header
+- Functions to serialize/parse headers
+- High-level helpers to encode plaintext into a frame and decode frames back into plaintext
+
+This module does NOT own sockets. It only transforms between:
+- (type, plaintext)  <->  raw frame bytes
+
+Frame Structure
+---------------
+A full frame is:
+
+[FrameHeader (fixed 8 bytes)] [EncryptedPayload (variable)]
+
+FrameHeader includes:
+- version (uint8)
+- type (uint8)  (MessageType as a byte)
+- reserved (uint16) (alignment/future use)
+- length (uint32) (length of encrypted payload)
+
+EncryptedPayload is produced/consumed by CryptoContext and typically contains:
+[seq/nonce || iv || ciphertext || tag]
+
+Encoding Path: encode_message
+-----------------------------
+Given:
+- MessageType type
+- plaintext string_view
+- CryptoContext crypto
+
+Steps:
+1) Encrypt plaintext using crypto.encrypt_and_mac()
+2) Fill FrameHeader with protocol version, type, and encrypted length
+3) Serialize header in network byte order
+4) Output: header + encrypted payload
+
+Decoding Path: decode_message
+-----------------------------
+Given a raw frame buffer:
+1) Parse FrameHeader and validate:
+   - supported version
+   - length within MAX_ENCRYPTED_PAYLOAD
+2) Pass encrypted payload to crypto.decrypt_and_verify()
+3) Return header + plaintext
+
+Safety & Limits
+---------------
+- MAX_ENCRYPTED_PAYLOAD bounds memory usage per frame.
+- Header parsing uses explicit size checks to avoid buffer overreads.
+- decode_message should fail cleanly on malformed frames.
+
+Integration Points
+------------------
+Used by:
+- Client (to send commands/messages)
+- Connection/Server (to parse incoming frames and build outgoing frames)
+
+Diagram (high level)
+--------------------
+(type, plaintext)
+      |
+      v
+encode_message -> [Header][EncryptedPayload]
+      |
+      v
+TCP stream
+      |
+      v
+decode_message -> (type, plaintext)

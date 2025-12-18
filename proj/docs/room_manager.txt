@@ -1,0 +1,35 @@
+RoomManager
+===========
+
+Role
+----
+RoomManager tracks membership relationships:
+- which room a given fd is in
+- which fds are members of a given room
+
+Core Behavior
+-------------
+- join(fd, room):
+  - if fd already in a different room: remove from old room first
+  - add fd to new room set
+  - update fd -> room mapping
+- leave(fd):
+  - remove fd from its current room
+  - cleanup the room entry if it becomes empty
+
+Invariants
+----------
+- An fd is in at most one room at a time (as implemented).
+- If a room has no members, it is removed from the rooms map (no empty rooms retained).
+- members(room) returns a snapshot list suitable for iteration while server sends messages.
+
+Integration Points
+------------------
+Used by:
+- ChatHub for broadcasts and joins/leaves
+- EpollServer/Connection lifecycle (cleanup on disconnect)
+
+References
+----------
+- server/include/.../room_manager.hpp
+- server/src/room_manager.cpp

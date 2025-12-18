@@ -1,0 +1,63 @@
+Connection (per client socket)
+==============================
+
+Role
+----
+Connection represents a single connected client and is the bridge between:
+- raw socket I/O (bytes)
+- protocol framing (Protocol)
+- security (CryptoContext)
+- application-level handling (server callbacks)
+
+Rather than repeating every method in the header, this document focuses on:
+- what state a Connection owns,
+- how data flows through it,
+- what invariants the server relies on.
+
+State Owned (typical)
+---------------------
+- fd: the client socket file descriptor
+- peer: printable peer identifier (ip:port or similar)
+- crypto: per-connection CryptoContext (keys + replay state)
+- inbuf: input byte buffer (accumulates TCP stream)
+- outbuf/out_off: output byte buffer + write offset
+- username + room: client identity/routing state (may be managed with ChatHub)
+
+Primary Call Paths
+------------------
+1) Read path (EPOLLIN):
+   EpollServer -> Connection::on_readable()
+     - recv() into inbuf
+     - while inbuf contains a full frame:
+         - parse header
+         - decode_message() -> (type, plaintext)
+         - invoke server-level handler callback(type, plaintext, fd)
+
+2) Write path (EPOLLOUT):
+   EpollServer -> Connection::on_writable()
+     - send() remaining bytes from outbuf starting at out_off
+     - when fully flushed: clear buffer and stop requesting EPOLLOUT
+
+3) Outgoing messages:
+   Server code calls Connection::queue_message(type, plaintext)
+     - encode_message() -> bytes
+     - append to outbuf and mark wants_write
+
+Key Invariants
+--------------
+- Connection never assumes recv() returns a whole frame; it buffers and parses incrementally.
+- Output writes are partial; out_off tracks progress.
+- CryptoContext must be per connection (do not share across clients).
+- Frame size limits are enforced before allocation.
+
+Failure Modes
+-------------
+- recv() returns 0: peer closed (server must remove fd).
+- decode_message fails: authentication failure or malformed frame; policy may be disconnect.
+- send() errors: close connection.
+
+References
+----------
+For method-level signatures and exact member names, see:
+- server/include/.../connection.hpp
+- server/src/connection.cpp

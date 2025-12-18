@@ -1,0 +1,39 @@
+ServerConfig
+============
+
+Role
+----
+ServerConfig is a small configuration container used to initialize the server.
+It typically provides:
+- bind address
+- port
+- max connections
+- shared secret (stage-1 keying)
+
+The loader reads a simple TOML-like key=value file and populates defaults when
+values are missing.
+
+Loading Flow
+------------
+1) Open config file.
+2) Read lines.
+3) Strip comments and whitespace.
+4) Parse `key = value` pairs.
+5) Convert and validate types (string/int).
+6) Populate ServerConfig struct.
+
+Integration Points
+------------------
+Used by:
+- server main() to construct EpollServer
+- optional scripts that run the server with different configs
+
+Diagram
+-------
+configs/server.toml
+      |
+      v
+ServerConfig::from_file
+      |
+      v
+ServerConfig instance -> EpollServer(cfg)

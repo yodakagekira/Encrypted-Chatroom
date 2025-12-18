@@ -1,0 +1,44 @@
+EpollServer (Chat Server)
+========================
+
+Role
+----
+EpollServer is the key layer:
+- owns the listening socket
+- owns the epoll instance
+- owns the map of active connections
+- dispatches readable/writable events to Connection objects
+- interprets decoded messages and applies chat logic (via ChatHub/RoomManager)
+
+Runtime Loop 
+-------------------------
+1) Initialize listening socket and epoll.
+2) Register listening socket with epoll.
+3) Loop:
+   - epoll_wait() for readiness events
+   - if listen socket readable: accept new clients (non-blocking) and register them
+   - if client socket readable: Connection::on_readable() -> server on_message callback
+   - if client socket writable: Connection::on_writable() flushes queued sends
+   - handle disconnects and cleanup
+
+Message Handling 
+-----------------------------
+When Connection decodes a message, server logic typically does:
+- HELLO: store username (ChatHub set_username + optional system ack)
+- JOIN: move fd to requested room (ChatHub/RoomManager) and notify
+- CHAT: broadcast to room members (ChatHub broadcast_room)
+- DISC: close connection gracefully
+
+The server’s job is “policy + routing”; Connection’s job is “I/O + framing + crypto”.
+
+Integration Boundaries
+----------------------
+- EpollServer does not implement crypto details; CryptoContext does.
+- EpollServer does not parse frames manually; Connection + Protocol do.
+- ChatHub/RoomManager do not touch sockets; they operate on fds and strings.
+
+References
+----------
+- server/include/.../epoll_server.hpp
+- server/src/epoll_server.cpp
+- server/include/.../server_config.hpp (startup settings)
