@@ -34,8 +34,3 @@ If the client uses a receiver thread:
 - guard stdout writes to avoid interleaving with the prompt.
 - a clean shutdown should stop the receiver thread and close the socket to unblock recv().
 
-References
-----------
-- client/include/.../client.hpp
-- client/src/client.cpp
-- client/src/main.cpp
