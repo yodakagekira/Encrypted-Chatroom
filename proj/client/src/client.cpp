@@ -152,7 +152,8 @@ void Client::rx_loop() {
         // Print any incoming plaintext (already timestamped by server in your design)
         {
             std::lock_guard<std::mutex> lock(io_mutex_);
-            std::cout << "\n" << plaintext << "\n";
+           // Clear current prompt, print message, then redraw prompt
+            std::cout << "\r" << std::string(80, ' ') << "\r" << plaintext << "\n> " << std::flush;
         }
     }
 }
