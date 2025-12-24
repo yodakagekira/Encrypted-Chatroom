@@ -1,0 +1,6 @@
+/home/ahmad/Documents/C++/Encrypted-Chatroom/proj/build/CMakeFiles/server.dir
+/home/ahmad/Documents/C++/Encrypted-Chatroom/proj/build/CMakeFiles/client.dir
+/home/ahmad/Documents/C++/Encrypted-Chatroom/proj/build/CMakeFiles/test_crypto.dir
+/home/ahmad/Documents/C++/Encrypted-Chatroom/proj/build/CMakeFiles/test.dir
+/home/ahmad/Documents/C++/Encrypted-Chatroom/proj/build/CMakeFiles/edit_cache.dir
+/home/ahmad/Documents/C++/Encrypted-Chatroom/proj/build/CMakeFiles/rebuild_cache.dir

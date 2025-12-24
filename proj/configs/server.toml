@@ -1,6 +1,5 @@
 bind_address = "0.0.0.0"
 port         = 12345
-
 shared_secret = "3481232871nqdwrqwf141241e1b2dkw1d1r1uwbdk12481y412r1wjbd1e9uw1d12rr1421kjb1ed1"
-
+allowed_rooms = ["lobby", "general", "support"]
 server_name = "Telegram 0.5"

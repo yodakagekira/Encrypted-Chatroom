@@ -8,6 +8,8 @@
 
 #include "include/ets/protocol.hpp" 
 #include "include/ets/crypto_context.hpp"
+#include "ets_server/chat_hub.hpp"
+
 
 namespace ets_server {
 

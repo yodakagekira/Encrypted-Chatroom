@@ -5,6 +5,9 @@
 #include <unordered_set>
 #include <vector>
 
+#include "ets_server/chat_hub.hpp"
+
+
 namespace ets_server {
 
 class RoomManager {

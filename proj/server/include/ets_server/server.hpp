@@ -7,6 +7,8 @@
 #include "ets_server/connection.hpp"
 #include "ets_server/server_config.hpp" 
 #include "include/ets/protocol.hpp"
+#include "ets_server/chat_hub.hpp"
+
 
 namespace ets_server {
 
@@ -28,6 +30,7 @@ private:
     int epoll_fd_{-1};
     bool running_{false};
 
+    ChatHub hub_;
     // key: client fd
     std::unordered_map<int, Connection> conns_;
 

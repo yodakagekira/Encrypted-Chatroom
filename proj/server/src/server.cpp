@@ -126,6 +126,9 @@ void EpollServer::accept_new_connections() {
         std::cout << "[" << timestamp_hhmmss() << "] New connection fd=" << cfd << "\n";
 
         auto& c = conns_.at(cfd);
+        hub_.add_connection(cfd);
+        hub_.join_room(cfd, "lobby");
+
         c.queue_message(ets::MessageType::Hello, "Welcome. Use HELLO <name>, JOIN <room>.");
         ensure_writable(cfd);
     }
@@ -161,6 +164,8 @@ void EpollServer::close_connection(int fd) {
 
     ::epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, fd, nullptr);
     it->second.close_now();
+    hub_.remove_connection(fd);
+    hub_.rooms().remove(fd);
     conns_.erase(it);
 }
 
@@ -191,16 +196,13 @@ static bool starts_with(std::string_view s, std::string_view p) {
 void EpollServer::broadcast_room(const std::string& room,
                                  const std::string& from_user,
                                  const std::string& text) {
-    const std::string line = "[" + timestamp_hhmmss() + "] " + from_user + ": " + text;
-
-    for (auto& kv : conns_) {
-        Connection& dst = kv.second;
-        const std::string dst_room = dst.room().empty() ? "lobby" : dst.room();
-        if (dst_room == room) {
-            dst.queue_message(ets::MessageType::Chat, line);
-            ensure_writable(dst.fd());
+    hub_.broadcast_room(room, -1, text, [&](int dst_fd, const std::string& msg) {
+        auto it = conns_.find(dst_fd);
+        if (it != conns_.end()) {
+            it->second.queue_message(ets::MessageType::Chat, msg);
+            ensure_writable(dst_fd);
         }
-    }
+    });
 }
 
 void EpollServer::on_message(Connection& c, ets::MessageType t, const std::string& msg) {
